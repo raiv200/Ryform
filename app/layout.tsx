@@ -3,11 +3,12 @@ import { Metadata } from "next"
 import { fontSans } from "@/lib/fonts"
 import { cn } from "@/lib/utils"
 import { ThemeProvider } from "@/components/theme-provider"
+import { Toaster } from "@/components/ui/toaster"
 
 export const metadata: Metadata = {
   title: {
-    default: "TallyForms",
-    template: `%s - TallyForms`,
+    default: "Ryform",
+    template: `%s - Ryform`,
   },
   description: "Create forms for all purposes in seconds. Without knowing how to code, and for free!",
   themeColor: [
@@ -32,12 +33,15 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <head />
         <body
           className={cn(
-            "min-h-screen bg-background font-sans antialiased",
+            " min-h-screen bg-background font-sans antialiased",
             fontSans.className
           )}
         >
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <div className="flex-1">{children}</div>
+        
+            <Toaster />
+       
           </ThemeProvider>
         </body>
       </html>

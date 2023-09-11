@@ -39,7 +39,7 @@ export function MainNav({ children }: MainNavProps) {
       <Link href="/" className=" hidden items-center space-x-2 md:flex">
         <Icons.logo />
         <span className="  hidden font-bold sm:inline-block">
-          TallyForms
+          Ryform
         </span>
       </Link>
       {mainNavItems?.length ? (
@@ -72,7 +72,7 @@ export function MainNav({ children }: MainNavProps) {
           <MobileNav items={mainNavItems}>{children}</MobileNav>
         )}
         <Link href="/" className="flex items-center space-x-2 md:hidden">
-          <span className="font-bold"> TallyForms</span>
+          <span className="font-bold"> Ryform</span>
         </Link>
       </div>
     </div>

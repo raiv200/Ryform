@@ -27,13 +27,18 @@ import {
     X,
     LucideIcon,
     LayoutDashboard,
+    Github,
+    Mail,
+    Shell,
+    SendHorizonal,
   } from "lucide-react"
   
 
   export type Icon = LucideIcon
   
   export const Icons = {
-    logo: FileSpreadsheet,
+    logo:Shell,
+    form: FileSpreadsheet,
     close: X,
     dashboard:LayoutDashboard,
     spinner: Loader2,
@@ -58,7 +63,10 @@ import {
     laptop: Laptop,
     twitter: Twitter,
     check: Check,
-    login:LogIn
+    login:LogIn,
+    gitHub:Github,
+    mail:Mail,
+    submit:SendHorizonal
   }
   
     
