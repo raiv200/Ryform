@@ -23,10 +23,12 @@ export function UserAccountNav({session}) {
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
+    router.refresh();
+    router.push('/')
     toast({
       title: "Sign Out Successful"
     });
-    router.push('/')
+  
   }
 
   return (

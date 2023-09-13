@@ -16,7 +16,8 @@ export default async function DashboardLayout({
    const supabase = createServerComponentClient({cookies}); 
    const {data: {session}} = await supabase.auth.getSession();
 
-    if(!session){
+  //  console.log(session)
+    if(!session?.user){
       redirect('/');
     }
 

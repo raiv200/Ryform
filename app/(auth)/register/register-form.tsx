@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 // import { supabase } from "@/supabase/supabase-client"
@@ -88,6 +88,35 @@ const RegisterForm = ({ className, props }: RegisterFormPorps) => {
     setEmail("");
     setPassword("");
   }
+  async function handleSignInWithGithub() {
+    setIsGitHubLoading(true)
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: "github",
+      options: {
+        redirectTo: `${location.origin}/auth/callback`,
+      },
+    });
+    if (error) {
+      // Sign-in successful, you can proceed with post-login actions
+      
+      return toast({
+        title: "Something went wrong.",
+        description: "Your sign in request failed. Please try again.",
+        variant: "destructive",
+      });
+    }
+    // User does not exist or sign-in failed, handle this case (e.g., show an error message)
+    console.log("Login successful. User:", data);
+    
+    toast({
+      variant: "success",
+      title: "Login Successful",
+      description: "Successfully Logged In",
+    });
+    setIsGitHubLoading(false)
+    // router.push("/dashboard");
+    
+  }
   return (
     <div className={cn("grid gap-6", className)} {...props}>
       <form onSubmit={(event) => handleOnSubmit(event)}>
@@ -145,6 +174,7 @@ const RegisterForm = ({ className, props }: RegisterFormPorps) => {
         </div>
       </div>
       <button
+      onClick={handleSignInWithGithub}
         type="button"
         className={cn(buttonVariants({ variant: "outline" }))}
         disabled={isLoading || isGitHubLoading}

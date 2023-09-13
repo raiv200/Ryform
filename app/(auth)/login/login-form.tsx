@@ -8,7 +8,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 // import { supabase } from "@/supabase/supabase-client"
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 type RegisterFormPorps = {
@@ -37,21 +37,19 @@ const LoginForm = ({ className, props }: RegisterFormPorps) => {
       // Sign-in successful, you can proceed with post-login actions
       console.log("Login successful. User:", data);
       router.push("/dashboard");
-     return  toast({
+      return toast({
         variant: "success",
         title: "Login Successful",
         description: "Successfully Logged In",
       });
-      
-    } 
-      // User does not exist or sign-in failed, handle this case (e.g., show an error message)
-   
-      return toast({
-        title: "Something went wrong.",
-        description: "Your sign in request failed. Please try again.",
-        variant: "destructive",
-      });
-  
+    }
+    // User does not exist or sign-in failed, handle this case (e.g., show an error message)
+
+    return toast({
+      title: "Something went wrong.",
+      description: "Your sign in request failed. Please try again.",
+      variant: "destructive",
+    });
   };
 
   async function handleOnSubmit(e: any) {
@@ -65,6 +63,34 @@ const LoginForm = ({ className, props }: RegisterFormPorps) => {
 
     setIsLoading(false);
   }
+
+  async function handleSignInWithGithub() {
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: "github",
+      options: {
+        redirectTo: `${location.origin}/auth/callback`,
+      },
+    });
+    if (error) {
+      // Sign-in successful, you can proceed with post-login actions
+      
+      return toast({
+        title: "Something went wrong.",
+        description: "Your sign in request failed. Please try again.",
+        variant: "destructive",
+      });
+    }
+    // User does not exist or sign-in failed, handle this case (e.g., show an error message)
+    console.log("Login successful. User:", data);
+    
+    toast({
+      variant: "success",
+      title: "Login Successful",
+      description: "Successfully Logged In",
+    });
+    // router.push("/dashboard");
+  }
+
   return (
     <div className={cn("grid gap-6", className)} {...props}>
       <form onSubmit={(event) => handleOnSubmit(event)}>
@@ -122,6 +148,7 @@ const LoginForm = ({ className, props }: RegisterFormPorps) => {
         </div>
       </div>
       <button
+      onClick={handleSignInWithGithub}
         type="button"
         className={cn(buttonVariants({ variant: "outline" }))}
         disabled={isLoading || isGitHubLoading}

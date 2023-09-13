@@ -1,9 +1,20 @@
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { Button } from "@/components/ui/button";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import Link from "next/link";
+import { redirect } from "next/navigation";
+import {cookies} from "next/headers"
 
 export default async function IndexPage() {
+
+  const supabase = createServerComponentClient({cookies}); 
+  const {data: {session}} = await supabase.auth.getSession();
+   console.log(session)
+
+    if(session?.user){
+      redirect('/dashboard');
+    }
 
   return (
     <div className="relative flex min-h-screen flex-col">
