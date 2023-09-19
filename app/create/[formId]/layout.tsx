@@ -12,13 +12,7 @@ import React from "react";
 
 export default async function CreateNewFormLayout({ children }) {
   const supabase = createServerComponentClient({ cookies });
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-
-  if (!session) {
-    redirect("/");
-  }
+  
   return (
     <div className="flex min-h-screen flex-col space-y-2 ">
       <header className="sticky top-0 z-40 border-b bg-background h-[70px]">
@@ -32,9 +26,8 @@ export default async function CreateNewFormLayout({ children }) {
         </div>
       </header>
       {/* <div className="container grid flex-1 gap-12 md:grid-cols-[200px_1fr] border"> */}
-      <main className="flex items-start px-8  w-full flex-1 max-w-5xl mx-auto border flex-col py-10 h-full ">
-      
-        <div className="flex flex-col border w-full max-w-4xl mx-auto py-4 px-2 mt-4 overflow-y-auto h-[600px]">
+      <main className="relative flex items-start px-8  w-full flex-1 max-w-5xl mx-auto border flex-col py-10 h-full ">
+        <div className=" flex flex-col  w-full max-w-4xl mx-auto py-4 mt-4 overflow-y-auto h-[600px]">
           {children}
         </div>
       </main>

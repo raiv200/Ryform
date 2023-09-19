@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { redirect, useRouter } from "next/navigation";
+import {  useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 // import { supabase } from "@/supabase/supabase-client"
@@ -22,6 +22,7 @@ const RegisterForm = ({ className, props }: RegisterFormPorps) => {
   const router = useRouter();
   const { toast } = useToast();
 
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -38,6 +39,9 @@ const RegisterForm = ({ className, props }: RegisterFormPorps) => {
         password,
         options: {
           emailRedirectTo: `${location.origin}/auth/callback`,
+          data:{
+            username:username
+          }
         },
       });
 
@@ -85,6 +89,7 @@ const RegisterForm = ({ className, props }: RegisterFormPorps) => {
     //   description: "We sent you a login link. Be sure to check your spam too.",
     // });
 
+    setUsername("");
     setEmail("");
     setPassword("");
   }
@@ -121,6 +126,22 @@ const RegisterForm = ({ className, props }: RegisterFormPorps) => {
     <div className={cn("grid gap-6", className)} {...props}>
       <form onSubmit={(event) => handleOnSubmit(event)}>
         <div className="grid gap-4">
+        <div className="grid gap-1">
+            <Label className="sr-only" htmlFor="email">
+              Username
+            </Label>
+            <Input
+              id="username"
+              placeholder="username"
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              autoCapitalize="none"
+              autoCorrect="off"
+              disabled={isLoading || isGitHubLoading}
+            />
+          </div>
+
           <div className="grid gap-1">
             <Label className="sr-only" htmlFor="email">
               Email

@@ -5,7 +5,7 @@ import { buttonVariants } from "@/components/ui/button"
 import { Icons } from "@/components/icons"
 
 import RegisterForm from "./register-form"
-import { supabase } from "@/supabase/supabase-client"
+// import { supabase } from "@/supabase/supabase-client"
 
 export const metadata = {
   title: "Register",

@@ -1,10 +1,11 @@
-"use client";
-
 import { Icons } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import React, { useState } from "react";
+import CreateDynamicForm from "./create-dynamic-form";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import {cookies} from 'next/headers'
 
 export const metadata = {
   title: "Create - New Form",
@@ -68,25 +69,28 @@ export const metadata = {
 
 // const NEW_FORM_SCHEMA = FORM_SCHEMA;
 
-const CreateNewForm = ({
+export default async function CreateNewForm({
   params,
 }: {
   params: { formId: string };
-}) => {
+}){
   // const [formSchema, setFormSchema] = useState(NEW_FORM_SCHEMA);
+  const supabase = createServerComponentClient({ cookies });
+
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  
   
   return (
-    <div className="px-2 ">
-      My FormId: {params.formId}
-      <div className="text-4xl font-semibold">New Form</div>
-       <div className="flex flex-col space-y-8 pt-6">
-         
-      </div>
-    </div>
+    <>
+        <CreateDynamicForm formId={params.formId} session={session} />
+    </>
   );
 };
 
-export default CreateNewForm;
+
 
 {/* <div className="flex flex-col space-y-8 pt-6">
 

@@ -31,6 +31,15 @@ import {
     Mail,
     Shell,
     SendHorizonal,
+    Tally2,
+    AlignJustify,
+    AtSign,
+    CalendarDays,
+    Clock,
+    Phone,
+    Link,
+    HashIcon,
+    Equal,
   } from "lucide-react"
   
 
@@ -66,7 +75,15 @@ import {
     login:LogIn,
     gitHub:Github,
     mail:Mail,
-    submit:SendHorizonal
+    submit:SendHorizonal,
+    shortText:Equal,
+    longText:AlignJustify,
+    email:AtSign,
+    date:CalendarDays,
+    time:Clock,
+    phone:Phone,
+    number:HashIcon,
+    link:Link
   }
   
     

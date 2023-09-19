@@ -8,7 +8,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 // import { supabase } from "@/supabase/supabase-client"
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 type RegisterFormPorps = {
@@ -65,6 +65,7 @@ const LoginForm = ({ className, props }: RegisterFormPorps) => {
   }
 
   async function handleSignInWithGithub() {
+    setIsGitHubLoading(true)
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "github",
       options: {
@@ -82,7 +83,7 @@ const LoginForm = ({ className, props }: RegisterFormPorps) => {
     }
     // User does not exist or sign-in failed, handle this case (e.g., show an error message)
     console.log("Login successful. User:", data);
-    
+    setIsGitHubLoading(false)
     toast({
       variant: "success",
       title: "Login Successful",

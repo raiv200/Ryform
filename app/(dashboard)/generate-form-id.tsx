@@ -2,7 +2,6 @@
 
 import { Icons } from "@/components/icons";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { v4 as uuidv4 } from 'uuid';
