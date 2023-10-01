@@ -10,9 +10,6 @@ import Link from "next/link";
 import { redirect, usePathname } from "next/navigation";
 import React from "react";
 
-export const metadata = {
-  title: "Form Name",
-};
 
 export default function FormPageLayout({
   children,

@@ -11,7 +11,7 @@ import { redirect } from "next/navigation";
 import React from "react";
 
 export default async function CreateNewFormLayout({ children }) {
-  const supabase = createServerComponentClient({ cookies });
+
   
   return (
     <div className="flex min-h-screen flex-col space-y-2 ">

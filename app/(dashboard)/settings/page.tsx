@@ -16,9 +16,7 @@ import { Label } from "@/components/ui/label";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import React, { useEffect, useState } from "react";
 
-export const metadata = {
-  title: "Settings",
-};
+
 
 const SettingsPage = () => {
   const [username, setUsername] = useState("user");
