@@ -1,5 +1,6 @@
 "use client";
 
+import { Icons } from "@/components/icons";
 import LoadingSpinner from "@/components/loading-spinner";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import {
@@ -60,7 +61,7 @@ export default function FormSubmissionPage({
 
       {userFormSubmissionData &&
         !isLoading &&
-        userFormSubmissionData?.length > 0 ? (
+        userFormSubmissionData?.length > 0 && (
           <ScrollArea className="w-full h-[490px] max-w-6xl pb-6 ">
             <ScrollBar orientation="horizontal" />
             <Table className="">
@@ -89,9 +90,21 @@ export default function FormSubmissionPage({
               </TableBody>
             </Table>
           </ScrollArea>
-        ): !isLoading && userFormSubmissionData?.length === undefined && <div className="flex items-center justify-center  h-[490px]">
-        No Form Data Exist
-   </div>}
+        )}
+      {userFormSubmissionData?.length === 0 ||
+        userFormSubmissionData?.length === null ||
+        (userFormSubmissionData?.length === undefined && !isLoading && (
+          <div className="flex flex-col space-y-4 h-[250px] items-center justify-center">
+            <Icons.form
+              strokeWidth={2}
+              className=" h-10 w-10 md:h-16 md:w-16"
+            />
+            <p className="text-md text-center font-bold md:text-lg">
+              {" "}
+              No Form Data Exist, Share you form to Collect User Data
+            </p>
+          </div>
+        ))}
     </div>
   );
 }
