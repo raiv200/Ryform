@@ -84,7 +84,12 @@ export const handleCreateTable = async (formSchema) => {
     tableName: supabaseSchema.tableName,
     schema: supabaseSchema.columns,
   };
-  const data = await fetch("http://localhost:3000/api/create-table", {
+
+  const baseUrl = process.env.NODE_ENV === 'development'
+  ? 'http://localhost:3000'
+  : 'https://ryform.vercel.app';
+
+  const data = await fetch(`${baseUrl}/api/create-table`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
