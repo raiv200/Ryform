@@ -44,6 +44,7 @@ import {
     Copy,
     ExternalLink,
     Trash2,
+    CheckCircle,
   } from "lucide-react"
   
 
@@ -90,7 +91,8 @@ import {
     link:Link,
     edit:PenSquare,
     copy:Copy,
-    externalLink:ExternalLink
+    externalLink:ExternalLink,
+    checkCircle:CheckCircle
   }
   
     

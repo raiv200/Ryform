@@ -15,11 +15,11 @@ export default function ThankYou() {
           height={56}
         />
         <h1
-          className={`font-extrabold text-[40px] mb-[10px] text-orange-600 mt-[24px]`}
+          className={`font-extrabold text-[40px] mb-[10px] text-rose-600 mt-[24px]`}
         >
           Thank you!
         </h1>
-        <p className="font-lg font-medium text text-center text-orange-400">
+        <p className="font-lg font-medium text text-center text-rose-400">
         Thanks for completing this form! Your detials have been saved.
         </p>
       </article>
