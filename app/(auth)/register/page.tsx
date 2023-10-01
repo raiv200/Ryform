@@ -34,7 +34,7 @@ export default async function RegisterPage() {
         <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
           <div className="flex flex-col space-y-2 text-center">
             <div className="flex h-16 w-16 items-center justify-center mx-auto rounded-full bg-muted">
-              <Icons.logo className="mx-auto h-8 w-8" />
+              <Icons.logo className="mx-auto h-8 w-8 text-rose-600" />
             </div>
             <h1 className="text-2xl font-semibold tracking-tight">
               Create an account
