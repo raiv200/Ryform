@@ -16,9 +16,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
-export const metadata = {
-  title: "Form Name",
-};
+
 
 export default function FormPage({ params }: { params: { formId: string } }) {
   const [userFormSubmissionData, setUserFormSubmissionData] = useState<
