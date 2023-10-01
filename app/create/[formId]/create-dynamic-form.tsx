@@ -248,7 +248,7 @@ export default function CreateDynamicForm({ formId, session }) {
       <div className="mt-4">
         {/* Render the list of form elements and labels */}
         {formSchema.map((element) => (
-          <div key={element.id} className=" relative flex mb-4 border ">
+          <div key={element.id} className=" relative flex mb-4 ">
             <div className=" flex flex-col space-y-4 w-[280px] sm:w-[380px] md:w-full sm:flex-row sm:items-center sm:space-x-4 sm:space-y-0 ">
               {/* Rendering form elements based on the schema */}
 

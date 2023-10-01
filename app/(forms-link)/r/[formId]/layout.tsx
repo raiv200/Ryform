@@ -17,7 +17,7 @@ export default async function FormForUserLayout({ children }) {
         </div>
       </header>
      
-      <main className="relative flex items-start px-8  w-full flex-1 max-w-5xl mx-auto border flex-col py-2 h-full ">
+      <main className="relative flex items-start px-8  w-full flex-1 max-w-5xl mx-auto  flex-col py-2 h-full ">
         <div className=" flex flex-col  w-full max-w-4xl mx-auto py-4 mt-4 overflow-y-auto h-full">
           {children}
         </div>
