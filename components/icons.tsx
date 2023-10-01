@@ -40,6 +40,10 @@ import {
     Link,
     HashIcon,
     Equal,
+    PenSquare,
+    Copy,
+    ExternalLink,
+    Trash2,
   } from "lucide-react"
   
 
@@ -53,7 +57,7 @@ import {
     spinner: Loader2,
     chevronLeft: ChevronLeft,
     chevronRight: ChevronRight,
-    trash: Trash,
+    trash: Trash2,
     post: FileText,
     page: File,
     media: Image,
@@ -83,7 +87,10 @@ import {
     time:Clock,
     phone:Phone,
     number:HashIcon,
-    link:Link
+    link:Link,
+    edit:PenSquare,
+    copy:Copy,
+    externalLink:ExternalLink
   }
   
     

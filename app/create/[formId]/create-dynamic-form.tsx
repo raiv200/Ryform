@@ -22,9 +22,12 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  createClientComponentClient
-} from "@supabase/auth-helpers-nextjs";
+import { Textarea } from "@/components/ui/textarea";
+import { toast } from "@/components/ui/use-toast";
+import { handleCreateTable } from "@/db/create-new-table";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { nanoid } from "nanoid";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 type FormSchema = {
@@ -78,12 +81,14 @@ const INPUT_BLOCK_ELEMENTS = [
 ];
 
 export default function CreateDynamicForm({ formId, session }) {
+  const router = useRouter();
   const supabase = createClientComponentClient();
 
   const [formSchema, setFormSchema] = useState<FormSchema[]>([]);
   const [formTitle, setFormTitle] = useState("");
   const [elementType, setElementType] = useState("text");
   const [selectedBox, setSelectedBox] = useState(null);
+  const [creatingForm, setCreatingForm] = useState(false);
 
   const addFormElement = () => {
     // Determine the schema structure based on the element type
@@ -99,7 +104,7 @@ export default function CreateDynamicForm({ formId, session }) {
       elementType === "url"
     ) {
       newElement = {
-        id: Date.now(), // Unique identifier for the element
+        id: nanoid(10), // Unique identifier for the element
         type: elementType,
         label: "",
       };
@@ -130,6 +135,7 @@ export default function CreateDynamicForm({ formId, session }) {
   };
 
   const handlePublish = async () => {
+    setCreatingForm(true);
     // Save the entire form schema with the formId to your database
     const completeFormSchema = {
       user_id: session?.user?.id,
@@ -137,7 +143,7 @@ export default function CreateDynamicForm({ formId, session }) {
       formTitle,
       schema: [
         {
-          id: 121212,
+          id: nanoid(10),
           type: "uuid",
           label: "id",
           primaryKey: true,
@@ -150,28 +156,48 @@ export default function CreateDynamicForm({ formId, session }) {
 
     // Save `completeForm` to your database
 
-    const { error } = await supabase
-      .from('formSchema')
-      .insert({
-        user_id:session?.user?.id,
-        formId:formId,
-        formTitle:formTitle,
-        schema:[
-          {
-            id: 121212,
-            type: "uuid",
-            label: "id",
-            primaryKey: true,
-          },
-          ...formSchema
-        ]
-      });
+    const schemaForUserForm = formSchema?.map((field) => ({
+      ...field,
+      label: field.label.toLowerCase(),
+    }));
+
+    const { error } = await supabase.from("formSchema").insert({
+      user_id: session?.user?.id,
+      formId: formId,
+      formTitle: formTitle,
+      schema: JSON.stringify(schemaForUserForm),
+    });
 
     if (error) {
       console.log(error);
     } else {
       console.log("Complete Form Schema:", completeFormSchema);
     }
+
+    // After the submission of the Form Scehma, Creating the table in the database with that
+    // form schema to store the user form submission data
+
+    const formSchemaForCreatingTable = {
+      formId: completeFormSchema.formId, // Table Name will be based on FormId
+      schema: completeFormSchema.schema,
+    };
+    const newGeneratedTableData = await handleCreateTable(
+      formSchemaForCreatingTable
+    );
+
+    console.log(
+      "Data Result after fetch POST form Pubmish Button ---> ",
+      newGeneratedTableData
+    );
+    setCreatingForm(false);
+
+    toast({
+      variant:"success",
+      title: "Form Published!!",
+      description: "Congrats 🎉 You just created a New Form",
+    });
+
+    router.push("/");
   };
 
   const handleBoxClick = (selectedType, index) => {
@@ -185,7 +211,7 @@ export default function CreateDynamicForm({ formId, session }) {
   // };
 
   return (
-    <div className=" text-white p-4 min-w-5xl w-full border-2">
+    <div className="  p-4 w-full overflow-x-hidden sm:min-w-5xl sm:w-full ">
       <div className=" flex items-center justify-between px-2 mb-4">
         <p className=" text-muted-foreground">My FormId: {formId}</p>
         <AlertDialog>
@@ -212,7 +238,7 @@ export default function CreateDynamicForm({ formId, session }) {
         </AlertDialog>
       </div>
       <input
-        className="bg-transparent relative cursor-text border-none placeholder:text-muted-foreground caret-muted-foreground text-4xl p-2 text-accent-foreground font-bold border border-transparent focus:border-transparent focus:outline-none"
+        className="bg-transparent relative shadow-none cursor-text border-none placeholder:text-muted-foreground caret-muted-foreground text-4xl p-2 text-accent-foreground font-bold border border-transparent focus:border-transparent  focus:outline-none"
         autoFocus={true}
         value={formTitle}
         placeholder="Form Title"
@@ -222,57 +248,65 @@ export default function CreateDynamicForm({ formId, session }) {
       <div className="mt-4">
         {/* Render the list of form elements and labels */}
         {formSchema.map((element) => (
-          <div key={element.id} className="mb-4">
-            <div className="flex items-center">
-              <button
-                className="bg-red-500 text-white p-2 rounded"
-                onClick={() => removeFormElement(element.id)}
-              >
-                Delete
-              </button>
+          <div key={element.id} className=" relative flex mb-4 border ">
+            <div className=" flex flex-col space-y-4 w-[280px] sm:w-[380px] md:w-full sm:flex-row sm:items-center sm:space-x-4 sm:space-y-0 ">
               {/* Rendering form elements based on the schema */}
+
+              <Input
+                type="text"
+                placeholder="Add Label"
+                value={element.label}
+                onChange={(e) => handleLabelChange(element.id, e.target.value)}
+                
+              />
+
               {element.type === "text" && (
-                <input
-                  type="text"
-                  placeholder="Your Text"
-                  className="border border-gray-400 bg-gray-800 text-white p-2 rounded ml-2"
-                />
+                <Input type="text" placeholder="Your Text" />
               )}
               {element.type === "email" && (
-                <input
-                  type="email"
-                  placeholder="Your Email"
-                  className="border border-gray-400 bg-gray-800 text-white p-2 rounded ml-2"
-                />
+                <Input type="email" placeholder="Your Email" />
               )}
               {element.type === "textarea" && (
-                <textarea
-                  placeholder="You TextArea"
-                  className="border border-gray-400 bg-gray-800 text-white p-2 rounded ml-2"
-                ></textarea>
+                <Textarea placeholder="You TextArea"></Textarea>
+              )}
+              {element.type === "date" && (
+                <Input type="date" placeholder="Choose Date" />
+              )}
+              {element.type === "time" && (
+                <Input type="time" placeholder="Select Time" />
+              )}
+              {element.type === "number" && (
+                <Input type="number" placeholder="Choose Number" />
+              )}
+              {element.type === "tel" && (
+                <Input type="tel" placeholder="Enter Phone Number" />
               )}
 
-             
+              {element.type === "url" && (
+                <Input type="url" placeholder="Paste Url" />
+              )}
+
+              <Button
+                onClick={() => removeFormElement(element.id)}
+                variant="ghost"
+                size="icon"
+                className=" absolute -top-2 right-0  sm:flex sm:relative  group  hover:bg-primary "
+              >
+                <Icons.trash className="h-4 w-4 md:h-5 md:w-5 text-rose-600 group-hover:text-white  dark:group-hover:text-rose-600 " />
+              </Button>
             </div>
-            <input
-              type="text"
-              placeholder="Label"
-              value={element.label}
-              onChange={(e) => handleLabelChange(element.id, e.target.value)}
-              className="border border-gray-400 bg-gray-800 text-white p-2 rounded mt-2 ml-2"
-            />
           </div>
         ))}
       </div>
 
       <Dialog>
         <DialogTrigger asChild>
-          <Button size="sm">
+          <Button size="sm" className="">
             <Icons.add className=" h-4 w-4 mr-2" strokeWidth={3} />
             Add New Element
           </Button>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[325px] md:min-w-[450px]">
+        <DialogContent className="max-w-[325px] sm:max-w-[375px] md:min-w-[450px]">
           <DialogHeader>
             <DialogTitle className="text-center">
               Insert Input Blocks

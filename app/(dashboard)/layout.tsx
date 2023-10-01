@@ -27,7 +27,7 @@ export default async function DashboardLayout({
   return (
     <div className="flex min-h-screen flex-col space-y-6">
       <header className="sticky top-0 z-40 border-b bg-background">
-        <div className="container flex h-16 items-center justify-between py-4">
+        <div className="container flex h-16 items-center justify-between  py-4">
           <MainNav  />
           <div className="flex  items-center space-x-6">
            <ThemeToggle />
@@ -35,11 +35,11 @@ export default async function DashboardLayout({
           </div>
         </div>
       </header>
-      <div className="container grid flex-1 gap-12 md:grid-cols-[200px_1fr]">
-        <aside className="hidden w-[200px] flex-col md:flex">
-          <DashboardNav  />
+      <div className="container grid flex-1 gap-4 md:grid-cols-[200px_1fr] px-4">
+        <aside className="relative hidden w-[200px] flex-col md:flex">
+          <DashboardNav />
         </aside>
-        <main className="flex w-full flex-1 flex-col overflow-hidden">
+        <main className="flex w-full flex-1 flex-col overflow-hidden mb-6">
           {children}
         </main>
       </div>

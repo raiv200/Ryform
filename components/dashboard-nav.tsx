@@ -21,11 +21,6 @@ type SidebarNavItem = {
     icon: "dashboard",
   },
   {
-    title: "Forms",
-    href: "/forms",
-    icon: "post",
-  },
-  {
     title: "Settings",
     href: "/settings",
     icon: "settings",
@@ -40,7 +35,7 @@ export function DashboardNav() {
   }
 
   return (
-    <nav className="grid items-start gap-2">
+    <nav className="fixed grid items-start gap-2 w-[200px] ">
       {sideBarNavItems.map((item, index) => {
         const Icon = Icons[item.icon || "arrowRight"]
         return (

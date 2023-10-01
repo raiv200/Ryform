@@ -133,7 +133,7 @@ const LoginForm = ({ className, props }: RegisterFormPorps) => {
             {isLoading && (
               <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
             )}
-            Sign In with Email
+             Sign In with Email
             <Icons.mail strokeWidth={2} className="ml-2 w-[15px] h-[15px]" />
           </button>
         </div>

@@ -36,9 +36,9 @@ export function MainNav({ children }: MainNavProps) {
 
   return (
     <div className="flex gap-6 md:gap-10">
-      <Link href="/" className=" hidden items-center space-x-2 md:flex">
-        <Icons.logo />
-        <span className="  hidden font-bold sm:inline-block">
+      <Link href="/" className=" hidden items-center space-x-1.5 md:flex">
+        <Icons.logo className="text-rose-600" />
+        <span className="  hidden font-bold sm:inline-block ">
           Ryform
         </span>
       </Link>

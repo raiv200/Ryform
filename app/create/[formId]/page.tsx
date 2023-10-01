@@ -1,11 +1,11 @@
+import CreateDynamicForm from "./create-dynamic-form";
 import { Icons } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import React, { useState } from "react";
-import CreateDynamicForm from "./create-dynamic-form";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import {cookies} from 'next/headers'
+import { cookies } from "next/headers";
+import React, { useState } from "react";
 
 export const metadata = {
   title: "Create - New Form",
@@ -73,7 +73,7 @@ export default async function CreateNewForm({
   params,
 }: {
   params: { formId: string };
-}){
+}) {
   // const [formSchema, setFormSchema] = useState(NEW_FORM_SCHEMA);
   const supabase = createServerComponentClient({ cookies });
 
@@ -81,18 +81,15 @@ export default async function CreateNewForm({
     data: { session },
   } = await supabase.auth.getSession();
 
-  
-  
   return (
     <>
-        <CreateDynamicForm formId={params.formId} session={session} />
+      <CreateDynamicForm formId={params.formId} session={session} />
     </>
   );
-};
+}
 
-
-
-{/* <div className="flex flex-col space-y-8 pt-6">
+{
+  /* <div className="flex flex-col space-y-8 pt-6">
 
           <div className="flex  flex-col w-full max-w-sm  space-y-4">
             <Label className="" htmlFor={form.label.replace(/ /g, '').toLowerCase()}>
@@ -106,4 +103,5 @@ export default async function CreateNewForm({
     Submit
     <Icons.arrowRight strokeWidth={3} className="w-4 h-4 ml-2" />
   </Button>
-</div>; */}
+</div>; */
+}

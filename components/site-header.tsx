@@ -1,3 +1,5 @@
+"use client"
+
 import { Icons } from "@/components/icons";
 import { MainNav } from "@/components/main-nav";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -11,11 +13,8 @@ import { cookies } from "next/headers";
 import Link from "next/link";
 import { redirect, useRouter } from "next/navigation";
 
-export async function SiteHeader() {
-  const supabase = createServerComponentClient({ cookies });
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
+export function SiteHeader() {
+
 
   return (
     <header className="bg-background sticky top-0 z-40 w-full border-b">

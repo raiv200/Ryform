@@ -50,9 +50,6 @@ export function UserAccountNav({session}) {
           <Link href="/dashboard">Dashboard</Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
-          <Link href="/forms">Forms</Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem asChild>
           <Link href="/settings">Settings</Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />

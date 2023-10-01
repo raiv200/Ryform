@@ -1,34 +1,89 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+#  Outerbase Hackathon (Outerbase X Hashnode) — September 2023
+  
+![Hashnode X Outerbase Hackathon](./public/sponsor-hashnode.png)
 
-## Getting Started
+### Project Task
 
-First, run the development server:
+**To Build an exciting Open-Source app of your choice using Outerbase as Database or create Plugins for Outerbase and its other features during the whole of September . Publish an article on your Hashnode blog about the process of creating and launching your app for a chance to win one of the 5 cash prizes and swags!**
+
+[Live Demo URL](https://ryform.vercel.app)
+
+
+![Poject Final View](./public/ryform.png)
+
+### Project Overview
+
+It consits of :
+
+* Header
+* Light/Dark Mode
+* Hero Section
+* Create Forms
+* Form Link Page
+* Dashboard Page
+* Form Submission Data
+* Footer
+and many more....
+
+and many more components...
+
+### Tech Stack Used
+
+- Next.js (Fullstack Framework for React.js)
+- React.js (Front-end UI Library)
+- Tailwind CSS (CSS Framework)
+- Outerbase (ForDatabase and) with Postgres Database
+- Vercel (For Hosting the App)
+
+### UI Resources Used
+
+* Images - (Google Images)
+* SVG Icons - (Lucide Icons)
+* Fonts (Inter)- (Google fonts)
+
+
+### The Code
+
+Steps to run the app locally:
+
+
+#### Step-1: Git Clone the project
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+   git clone https://github.com/raiv200/Ryform.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+#### Step-2: Install the dependencies
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+  npm install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+#### Step-3: Add the Environment Variables in the (.env ) File
 
-## Learn More
+ Create a .env file in **root of the directory** and add the following environment variables.
 
-To learn more about Next.js, take a look at the following resources:
+```bash
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+SUPABASE_DB_PASSWORD=
+SUPABASE_DB_USER=
+SUPABASE_DB_PORT=
+SUPABASE_DB_HOST=
+SUPABASE_DB_DATABASE=
+SUPABASE_ACCESS_TOKEN=
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+I have used Supabase Postgres Database, so you can get the credentials from their dashboard.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+#### Step-4: Start the development server
+
+Now open your project in your favorite IDE , (VsCode) and then start the development server.
+
+```bash
+   npm run dev
+```
