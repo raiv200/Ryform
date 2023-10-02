@@ -197,7 +197,8 @@ export default function CreateDynamicForm({ formId, session }) {
       description: "Congrats 🎉 You just created a New Form",
     });
 
-    router.push("/");
+    router.replace("/dashboard");
+    router.refresh();
   };
 
   const handleBoxClick = (selectedType, index) => {
